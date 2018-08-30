@@ -1,0 +1,18 @@
+drop database if exists bamazondb;
+create database bamazondb;
+use bamazondb;
+
+create table products (
+	 item_id varchar(30), 
+	 product_name varchar(30), 
+	 department_name varchar(50),
+	 price int(10),
+	 stock_quantity int(10),
+     primary key(item_id)
+); 
+
+
+
+
+
+
