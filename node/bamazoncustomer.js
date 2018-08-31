@@ -25,7 +25,7 @@ connection.query('SELECT 1', function (error, results, fields) {
 
 console.log("connected!");
 
-connection.end();
+
 // Inquirer Prompt for Customer
 
 inquirer.prompt([
@@ -49,3 +49,4 @@ inquirer.prompt([
 });
 
 
+connection.end();
