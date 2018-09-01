@@ -64,9 +64,14 @@ function loop() {
 }
 
 // Inquirer Prompt for Customer
+
 inquirer.prompt([
   // this line is logging before the sql? why...? probably need the wait function
   {
+    type: "input",
+    name: "warning",
+    message: "Use this app to buy some products from BAMAZON the next big node app. You can press cntrl + c at anytime to exit. Press enter to continue."
+  },{
     type: "input",
     name: "custProduct",
     message: "What product would you like to buy? You can use the item_id."
@@ -95,6 +100,5 @@ inquirer.prompt([
   })
 
 });
-
 
 
