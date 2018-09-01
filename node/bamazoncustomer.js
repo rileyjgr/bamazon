@@ -3,14 +3,15 @@
 //Node Modules
 const mysql         = require('mysql');
 const inquirer      = require('inquirer');
-const request       = require('request');
+const cTable        = require('console.table');
+
+//not needed atm. here incase i do
 const axios         = require('axios');
-const csv           = require('csv');
 
 
 // sql node server configuration not sure how to get this working
 
-let connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
@@ -25,6 +26,7 @@ connection.connect();
 
 
 let id = 'products';
+// needs promise handling to
 // gets the response from the server
 connection.query('select * from bamazon.products',
 function(err, rows){
@@ -32,25 +34,29 @@ function(err, rows){
     console.log(err);
     return;
   }
+    function print(rows) {
+    // Find Max item string length of each column
+    var max = {item_id: 2, product_name: 4, department_name: 11, price: 5, stock_quantity: 5};
+    for(let i = 0; i < rows.length; i++) {
+        max.item_id = (rows[i].item_id.toString().length > max.item_id) ? rows[i].item_id.toString().length : max.item_id;
+        max.product_name = (rows[i].product_name.length > max.product_name) ? rows[i].product_name.length : max.product_name;
+        max.department_name = (rows[i].department_name.length > max.department_name) ? rows[i].department_name.length : max.department_name;
+        max.price = (rows[i].price.toString().length > max.price) ? rows[i].price.toString().length : max.price;
+        max.stock_quantity = (rows[i].stock_quantity.toString().length > max.stock_quantity) ? rows[i].stock_quantity.toString().length : max.stock_quantity;
+    }
 
-  rows.forEach(function(result) {
-
-    let id         =  result.item_id;
-    let name       =  result.product_name;
-    let department =  result.department_name;
-    let price      =  result.price;
-    let amount     =  result.stock_quantity;
-
-    // just to filter out bs
-    console.log('                          ');
-
-    //ids for table
-    let names = 'id ' + 'item ' + 'department ' + 'price ' + 'stock ';
-    console.log(names);
-    // show the table
-    console.log(id, name, department, price, amount);
-  });
+}
+console.log('                      '); // this will have to be removed later on
+print(rows);
+const table = rows;
+console.table(table);
 });
+
+
+  // shows the table nice and neat. Thanks to my friend on discord CrazyInfin8#7283 for helping so much with this
+
+
+
 
 // need to add something to wait for response from sql server
 
@@ -68,20 +74,24 @@ inquirer.prompt([
   {
     type: "input",
     name: "custProduct",
-    message: "What product would you like to buy? You can use the item_id or the item's name."
+    message: "What product would you like to buy? You can use the item_id."
   },{
     type: "input",
     name: "custAmount",
     message: "How many would you like to buy?"
   }]).then(function(answers){
-
+      // something is off on this then(function) because it is ending my app before it makes the request below.
     let custProduct     = answers.custProduct;
     let custAmount      = answers.custAmount;
 
-  /*
-      console.log(custProduct);
-      console.log(custAmount);
-     */
+
+  connection.query('select' + custProduct + ' from bamazon.products minus' + custAmount,
+      function(err, rows){
+      if (err) {
+        console.log(err);
+        return;
+      }
+  })
 
 });
 
