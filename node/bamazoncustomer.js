@@ -34,6 +34,7 @@ function(err, rows){
     console.log(err);
     return;
   }
+    // shows the table nice and neat. Thanks to my friend on discord CrazyInfin8#7283 for helping so much with this
     function print(rows) {
     // Find Max item string length of each column
     var max = {item_id: 2, product_name: 4, department_name: 11, price: 5, stock_quantity: 5};
@@ -51,12 +52,6 @@ print(rows);
 const table = rows;
 console.table(table);
 });
-
-
-  // shows the table nice and neat. Thanks to my friend on discord CrazyInfin8#7283 for helping so much with this
-
-
-
 
 // need to add something to wait for response from sql server
 
@@ -83,17 +78,23 @@ inquirer.prompt([
       // something is off on this then(function) because it is ending my app before it makes the request below.
     let custProduct     = answers.custProduct;
     let custAmount      = answers.custAmount;
+    let sql = 'update products set stock_quantity = stock_quantity - ? where item_id = ?';
+    let data = [custAmount, custProduct];
 
-
-  connection.query('select' + custProduct + ' from bamazon.products minus' + custAmount,
+  //passes and subtracts from the db
+  connection.query(sql, data,
       function(err, rows){
       if (err) {
         console.log(err);
         return;
       }
+    const table2 = rows;
+    console.table(table2);
+
+    connection.end();
   })
 
 });
 
-connection.end();
+
 

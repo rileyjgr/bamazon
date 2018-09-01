@@ -2,7 +2,7 @@ drop database if exists bamazon;
 create database bamazon;
 use bamazon;
 
-drop table if exists products;
+drop table if exists bamazon.products;
 
 create table products (
 	 item_id varchar(30), 
