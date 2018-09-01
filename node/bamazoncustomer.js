@@ -4,10 +4,11 @@
 const mysql         = require('mysql');
 const inquirer      = require('inquirer');
 const cTable        = require('console.table');
-
+const deasync       = require('deasync');
+const cp            = require('child_process');
+const exec          = deasync(cp.exec);
 //not needed atm. here incase i do
 const axios         = require('axios');
-
 
 // sql node server configuration not sure how to get this working
 
@@ -65,6 +66,10 @@ function loop() {
 
 // Inquirer Prompt for Customer
 
+// https://github.com/abbr/deasync commented below is this. Would like to get this work to loop through over and over
+/* var done = false;
+var bleh;
+asyncFunction(p1,function cb(res) { */
 inquirer.prompt([
   // this line is logging before the sql? why...? probably need the wait function
   {
@@ -100,5 +105,8 @@ inquirer.prompt([
   })
 
 });
-
-
+/*     bleh = res;
+    done = true;
+});
+require('deasync').loopWhile(function(){return !done;});
+ */
