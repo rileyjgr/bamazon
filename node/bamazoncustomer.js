@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 
 //Node Modules
 const mysql         = require('mysql');
@@ -22,7 +22,7 @@ connection.connect();
 
 
 // show the list
-console.log(names);
+
 
 let id = 'products';
 // gets the response from the server
@@ -46,6 +46,7 @@ function(err, rows){
 
     //ids for table
     let names = 'id ' + 'item ' + 'department ' + 'price ' + 'stock ';
+    console.log(names);
     // show the table
     console.log(id, name, department, price, amount);
   });
