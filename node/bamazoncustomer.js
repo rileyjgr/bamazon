@@ -1,4 +1,5 @@
 // require("dotenv").config();
+'use strict';
 
 //Node Modules
 const mysql         = require('mysql');
@@ -48,7 +49,7 @@ function(err, rows){
     }
 
 }
-console.log('                      '); // this will have to be removed later on
+
 print(rows);
 const table = rows;
 console.table(table);
@@ -57,12 +58,6 @@ console.table(table);
 // need to add something to wait for response from sql server
 
 
-
-// wait for user resonse function
-function loop() {
-
-
-}
 
 // Inquirer Prompt for Customer
 
