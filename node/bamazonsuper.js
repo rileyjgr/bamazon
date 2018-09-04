@@ -3,10 +3,12 @@
 //Node Modules
 const mysql         = require('mysql');
 const inquirer      = require('inquirer');
-const request       = require('request');
 const axios         = require('axios');
 const csv           = require('csv');
-
+const cTable        = require('console.table');
+const deasync       = require('deasync');
+const cp            = require('child_process');
+const exec          = deasync(cp.exec);
 
 // sql node server configuration not sure how to get this working
 
@@ -30,7 +32,22 @@ inquirer.prompt([
         ]}
 ]).then(answers => {
 
+    const response = answers.supervisor;
 
+    let sql = 'select * from bamazon.supervisor';
 
-}
-connection.end();
+  //passes and subtracts from the db
+  connection.query(sql,
+      function(err, rows){
+      if (err) {
+        console.log(err);
+        return;
+      }
+    const table = rows;
+    console.table(table);
+
+    connection.end();
+  })
+
+});
+

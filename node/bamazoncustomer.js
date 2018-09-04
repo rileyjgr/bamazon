@@ -61,10 +61,7 @@ console.table(table);
 
 // Inquirer Prompt for Customer
 
-// https://github.com/abbr/deasync commented below is this. Would like to get this work to loop through over and over
-/* var done = false;
-var bleh;
-asyncFunction(p1,function cb(res) { */
+
 inquirer.prompt([
   // this line is logging before the sql? why...? probably need the wait function
   {
