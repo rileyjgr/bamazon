@@ -74,8 +74,10 @@ inquirer.prompt([
         break;
 
       // View low Inventory
-      case 'View low inquirer':
-        connection.query('select * from bamazon.products where stock_quantity <= 10',
+      case 'View Low Inventory':
+        let call = 'select * from products where stock_quantity <= 105';
+
+        connection.query(call,
           function(err, rows){
             if (err) {
               console.log(err);
