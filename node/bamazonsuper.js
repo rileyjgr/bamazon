@@ -35,7 +35,15 @@ inquirer.prompt([
     const response = answers.supervisor;
 
     let sql = 'select * from bamazon.supervisor';
-
+  /*
+  1. Have to add an alias for sql not really suer what this is yet but have to do it
+  2. Have to add a function in bamazoncustomer.js that sends the data to the supervisor
+  table to add product sales
+  3. Have to add a function in mysql (supervisor table) that takes the price of the product
+  from the products table.
+  4. Have to add a function in sql that (product_sales * price) - over_head_costs
+  5. Then we are done bb
+  */
   //passes and subtracts from the db
   connection.query(sql,
       function(err, rows){
