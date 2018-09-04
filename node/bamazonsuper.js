@@ -20,6 +20,17 @@ let connection = mysql.createConnection({
 
 connection.connect();
 
+inquirer.prompt([
+     {
+      type: 'list',
+      name: 'supervisor',
+      message: 'What do you want to do?',
+      choices: [
+        'View Data from Departments'
+        ]}
+]).then(answers => {
 
 
+
+}
 connection.end();
