@@ -77,9 +77,24 @@ inquirer.prompt([
       // something is off on this then(function) because it is ending my app before it makes the request below.
     let custProduct     = answers.custProduct;
     let custAmount      = answers.custAmount;
-    let sql = 'update products set stock_quantity = stock_quantity - ? where item_id = ?';
-    let data = [custAmount, custProduct];
-
+    let sql             = 'update products set stock_quantity = stock_quantity - ? where item_id = ?';
+    let data            = [custAmount, custProduct];
+    let updateSuper     = 'update supervisor set product_sales = product_sales + ? where department_id = ?';
+    // switch statement to get the department_id
+    // i feel like this will be the best way to get the department_id for the supervisor table
+    // let updateData      = {
+    //   switch(case){
+    //     case 1:
+    //     case 2:
+    //     case 4:
+    //     case 5:
+    //     case 6:
+    //     case 7:
+    //     case 8:
+    //     case 9:
+    //     case 10:
+    //   }
+    // }
   //passes and subtracts from the db
   connection.query(sql, data,
       function(err, rows){
@@ -92,11 +107,16 @@ inquirer.prompt([
 
     connection.end();
   })
-
+  // this will be used to update the supervisor table
+  // connection.query(updateSuper, updateData,
+  // function(err, rows_){
+  //   if(err) {
+  //       console.log(err);
+  //   }
+  //   const table3 = rows;
+  //   // console.table(table3);
+  //   connection.end();
+  // })
 });
 }
-/*     bleh = res;
-    done = true;
-});
-require('deasync').loopWhile(function(){return !done;});
- */
+

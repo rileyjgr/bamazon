@@ -91,8 +91,6 @@ inquirer.prompt([
 
         break;
       // add to Inventory
-
-      case 3:
       case 'Add to Inventory':
         inquirer.prompt([
           {
