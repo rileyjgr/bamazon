@@ -3,7 +3,7 @@ create database bamazon;
 use bamazon;
 
 drop table if exists bamazon.products;
-
+use bamazon;
 create table products (
 	 item_id varchar(30), 
 	 product_name varchar(30), 
@@ -12,6 +12,22 @@ create table products (
 	 stock_quantity int(10),
      primary key(item_id)
 ); 
+
+
+
+use bamazon;
+drop table if exists bamazon.calc_product_sales;
+create table calc_product_sales (
+	 item_id varchar(30),  
+	 department_id varchar(50),
+	 price int(10),
+     amount_of_sales int(100),
+	 revenue int(10),
+     primary key(item_id)
+); 
+
+
+
 
 use bamazon;
 drop table if exists bamazon.supervisor;

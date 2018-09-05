@@ -5,12 +5,6 @@
 const mysql         = require('mysql');
 const inquirer      = require('inquirer');
 const cTable        = require('console.table');
-const deasync       = require('deasync');
-const cp            = require('child_process');
-const exec          = deasync(cp.exec);
-
-//not needed atm. here incase i do
-const axios         = require('axios');
 
 
 // sql node server configuration not sure how to get this working

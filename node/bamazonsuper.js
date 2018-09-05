@@ -3,12 +3,8 @@
 //Node Modules
 const mysql         = require('mysql');
 const inquirer      = require('inquirer');
-const axios         = require('axios');
-const csv           = require('csv');
 const cTable        = require('console.table');
-const deasync       = require('deasync');
-const cp            = require('child_process');
-const exec          = deasync(cp.exec);
+
 
 // sql node server configuration not sure how to get this working
 
@@ -28,6 +24,7 @@ inquirer.prompt([
       name: 'supervisor',
       message: 'What do you want to do?',
       choices: [
+        'Set Revenue',
         'Set total_Profit',
          'View Data',
           'Reset Table'
@@ -43,7 +40,22 @@ inquirer.prompt([
    5. Then we are done bb
    */
     const response = answers.supervisor;
+
     switch (response) {
+        case 'Set Revenue':
+            let joinTables = 'select calc_product_sales.revenue from bamazon.calc_product_sales right join select supervisor.product_sales from bamazon.supervisor';
+            // let sql2 = 'update supervisor set product _sales = ' + getRev;
+            connection.query(joinTables,
+                function (err, rows){
+                if (err){
+                    console.log(err);
+                    return;
+                }
+                const table3 = rows;
+                console.table(table3);
+                connection.end();
+                })
+
         case 'Set total_Profit':
         let sql = 'update supervisor set total_profit = product_sales - over_head_costs';
 
@@ -75,18 +87,36 @@ inquirer.prompt([
                 });
          break;
         case 'Reset Table':
-            let sql1 = 'update supervisor set total_profit = 0';
-            connection.query(sql1,
-                function (err, rows) {
-                    if (err) {
-                        console.log(err);
-                        return;
-                    }
+            // function to Reset Profits
+            const restProfit = () => {
+                let sql1 = 'update supervisor set total_profit = 0';
+                connection.query(sql1,
+                    function (err, rows) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
 
-                    const table = rows;
-                    console.table(table);
+                        const table = rows;
+                        console.table(table);
+                    });
+            }
+            // function to reset sales
+            const restSales = () => {
+                let sql4 = 'update supervisor set product_sales = 0';
+                connection.query(sql4,
+                    function (err, rows) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
 
-                    connection.end();
-                });
+                        const restTable = rows;
+                        console.table(restTable);
+                    });
+            }
+         restProfit();
+         restSales();
+         connection.end();
     }
 });
