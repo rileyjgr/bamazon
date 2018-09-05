@@ -28,8 +28,7 @@ connection.connect();
 
 
 let id = 'products';
-// needs promise handling to
-// gets the response from the server
+
 connection.query('select * from bamazon.products',
 function(err, rows){
   if (err) {
@@ -53,15 +52,13 @@ function(err, rows){
 print(rows);
 const table = rows;
 console.table(table);
+goPrompt();
 });
-
-// need to add something to wait for response from sql server
-
 
 
 // Inquirer Prompt for Customer
 
-
+const goPrompt = () => {
 inquirer.prompt([
   // this line is logging before the sql? why...? probably need the wait function
   {
@@ -97,6 +94,7 @@ inquirer.prompt([
   })
 
 });
+}
 /*     bleh = res;
     done = true;
 });
