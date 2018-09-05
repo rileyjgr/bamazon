@@ -13,6 +13,7 @@ create table products (
      primary key(item_id)
 ); 
 
+use bamazon;
 drop table if exists bamazon.supervisor;
 create table supervisor (
 	department_id varchar(30),

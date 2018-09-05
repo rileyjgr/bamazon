@@ -75,11 +75,12 @@ inquirer.prompt([
     message: "How many would you like to buy?"
   }]).then(function(answers){
       // something is off on this then(function) because it is ending my app before it makes the request below.
-    let custProduct     = answers.custProduct;
+    let custProduct       = answers.custProduct;
     let custAmount      = answers.custAmount;
-    let sql             = 'update products set stock_quantity = stock_quantity - ? where item_id = ?';
-    let data            = [custAmount, custProduct];
-    let updateSuper     = 'update supervisor set product_sales = product_sales + ? where department_id = ?';
+    let sql                      = 'update products set stock_quantity = stock_quantity - ? where item_id = ?';
+    let data                    = [custAmount, custProduct];
+    let updateSuper      = 'update supervisor set product_sales = product_sales + ? where department_id = ?';
+
     // switch statement to get the department_id
     // i feel like this will be the best way to get the department_id for the supervisor table
     // let updateData      = {
@@ -95,6 +96,7 @@ inquirer.prompt([
     //     case 10:
     //   }
     // }
+    
   //passes and subtracts from the db
   connection.query(sql, data,
       function(err, rows){
